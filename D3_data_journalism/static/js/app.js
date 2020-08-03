@@ -1,9 +1,4 @@
-//create an svg box
-var svg = d3.select("#scatter")
-  .append("svg")
-  .attr("height", 400)
-  .attr("width", 600);
-  var chartGroup = svg.append("g")
+
 
 
 // bring in the data and store to arrays
@@ -81,9 +76,19 @@ smokesHigh = data.map(function(d) {
 
 })
 
+dataObject={
+    id
+}
 //draw a circle and append it to the chartGroup
+//create an svg box
+var svg = d3.select("#scatter")
+  .append("svg")
+  .attr("height", 400)
+  .attr("width", 600);
+  var chartGroup = svg.append("g")
 
-chartGroup.data(alldata)
+chartGroup.selectAll("circle")
+    .data([1,2,3,4])
     .enter()
     .append("circle")
     .attr("r", 50)
