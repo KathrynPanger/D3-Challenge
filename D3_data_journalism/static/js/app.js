@@ -3,7 +3,9 @@
 
 // bring in the data and store to arrays
 alldata = d3.csv("static/data/data.csv").then(function(data){
-states = data.map(function(d) { 
+    console.log(data)
+
+    states = data.map(function(d) { 
     return d.state
 
 })
@@ -76,9 +78,7 @@ smokesHigh = data.map(function(d) {
 
 })
 
-dataObject={
-    id
-}
+
 //draw a circle and append it to the chartGroup
 //create an svg box
 var svg = d3.select("#scatter")
@@ -88,7 +88,7 @@ var svg = d3.select("#scatter")
   var chartGroup = svg.append("g")
 
 chartGroup.selectAll("circle")
-    .data([1,2,3,4])
+    .data(data)
     .enter()
     .append("circle")
     .attr("r", 50)
@@ -97,6 +97,8 @@ chartGroup.selectAll("circle")
     .attr("stroke", "black")
     .attr("stroke-width", "5")
     .attr("fill", "red");
+
+
 });
 
 
