@@ -82,23 +82,39 @@ smokesHigh = data.map(function(d) {
 svgHeight=400
 svgWidth=600
 
-//scale the data in preparation for circle-fication
+//set some margins
+var margin = {
+    top: 60,
+    right: 60,
+    bottom: 60,
+    left: 60
+  };
+  
+ // Define chart area
+  var chartWidth = svgWidth - margin.left - margin.right;
+  var chartHeight = svgHeight - margin.top - margin.bottom;
+
+//scale the data in preparation for circle-i-fication
 var xScale = d3.scaleLinear()
   .domain(d3.extent(income))
-  .range([0, svgWidth]);
+  .range([0, chartWidth]);
 
   var yScale = d3.scaleLinear()
   .domain(d3.extent(obesity))
-  .range([0, svgHeight]);
+  .range([0, chartHeight]);
 
+ //create variables to be axis in preparation for chart-i-fication
+  var bottomAxis = d3.axisBottom(xScale);
+  var leftAxis = d3.axisLeft(yScale);
 
 //draw a circle and append it to the chartGroup
 //create an svg box
 var svg = d3.select("#scatter")
   .append("svg")
-  .attr("height", svgHeight)
-  .attr("width", svgWidth);
+  .attr("height", chartHeight)
+  .attr("width", chartWidth);
   var chartGroup = svg.append("g")
+  //.attr("transform", `translate(${margin.left}, ${margin.top})`); FIX THIS
 
 chartGroup.selectAll("circle")
     .data(data)
@@ -111,7 +127,14 @@ chartGroup.selectAll("circle")
     .attr("stroke-width", "5")
     .attr("fill", "red");
 
+chartGroup.append("g")
+    .classed("axis", true)
+    .call(leftAxis);
 
+chartGroup.append("g")
+    .classed("axis", true)
+    .attr("transform", `translate(0, ${chartHeight})`)
+    .call(bottomAxis);
 });
 
 
