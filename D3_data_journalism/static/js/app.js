@@ -78,22 +78,35 @@ smokesHigh = data.map(function(d) {
 
 })
 
+//define the width and hight of svgbox
+svgHeight=400
+svgWidth=600
+
+//scale the data in preparation for circle-fication
+var xScale = d3.scaleLinear()
+  .domain(d3.extent(income))
+  .range([0, svgWidth]);
+
+  var yScale = d3.scaleLinear()
+  .domain(d3.extent(obesity))
+  .range([0, svgHeight]);
+
 
 //draw a circle and append it to the chartGroup
 //create an svg box
 var svg = d3.select("#scatter")
   .append("svg")
-  .attr("height", 400)
-  .attr("width", 600);
+  .attr("height", svgHeight)
+  .attr("width", svgWidth);
   var chartGroup = svg.append("g")
 
 chartGroup.selectAll("circle")
     .data(data)
     .enter()
     .append("circle")
-    .attr("r", 50)
-    .attr("cx", (d => d.income))
-    .attr("cy", (d => d.obesity))
+    .attr("r", 2)
+    .attr("cx", (d => xScale(d.income)))
+    .attr("cy", (d => yScale(d.obesity)))
     .attr("stroke", "black")
     .attr("stroke-width", "5")
     .attr("fill", "red");
