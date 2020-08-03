@@ -1,5 +1,13 @@
+//create an svg box
+var svg = d3.select("#scatter")
+  .append("svg")
+  .attr("height", 400)
+  .attr("width", 600);
+  var chartGroup = svg.append("g")
+
+
 // bring in the data and store to arrays
-data = d3.csv("static/data/data.csv").then(function(data){
+alldata = d3.csv("static/data/data.csv").then(function(data){
 states = data.map(function(d) { 
     return d.state
 
@@ -72,10 +80,21 @@ smokesHigh = data.map(function(d) {
     return d.smokesHigh
 
 })
-// create a trace for the initial scatterplot
 
+//draw a circle and append it to the chartGroup
 
-console.log(smokesLow)
+chartGroup.data(alldata)
+    .enter()
+    .append("circle")
+    .attr("r", 50)
+    .attr("cx", (d => d.income))
+    .attr("cy", (d => d.obesity))
+    .attr("stroke", "black")
+    .attr("stroke-width", "5")
+    .attr("fill", "red");
 });
+
+
+
 
 //var newarray=dataArray.forEach(element => console.log(element.x));
