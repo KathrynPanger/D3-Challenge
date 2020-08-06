@@ -176,7 +176,7 @@ chartGroup.append("text")
 .text(vary);
 
 chartGroup.append("text")
-.attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top})`)
+.attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top - 10})`)
 .attr("class", "axisText")
 .text(varx);
 
