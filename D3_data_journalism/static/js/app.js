@@ -6,7 +6,7 @@ svgWidth=600
 //set some margins
 var margin = {
     top: 60,
-    right: 60,
+    right: 120,
     bottom: 60,
     left: 60
   };
@@ -181,7 +181,7 @@ chartGroup.append("text")
 
 
 chartGroup.append("text")
-.attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top})`)
+.attr("transform", `translate(${chartWidth+ 60}, 0)`)
 .attr("class", "axisText")
 .text("FIND ME");
 }).catch(function(error) {
