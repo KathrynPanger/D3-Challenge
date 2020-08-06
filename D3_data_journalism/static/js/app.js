@@ -175,9 +175,15 @@ chartGroup.append("text")
 .text(vary);
 
 chartGroup.append("text")
-.attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top })`)
+.attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top})`)
 .attr("class", "axisText")
 .text(varx);
+
+
+chartGroup.append("text")
+.attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top})`)
+.attr("class", "axisText")
+.text("FIND ME");
 }).catch(function(error) {
 console.log(error);
 
