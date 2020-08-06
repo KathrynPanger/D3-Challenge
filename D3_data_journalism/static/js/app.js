@@ -175,6 +175,7 @@ chartGroup.append("text")
 .attr("class", "axisText")
 .text(vary);
 
+
 chartGroup.append("text")
 .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top - 10})`)
 .attr("class", "axisText")
@@ -204,3 +205,7 @@ var xmenu= chartGroup.append("g")
 // .text("Obesity");
 })
 ;
+
+// make page responsive
+makeResponsive();
+d3.select(window).on("resize", makeResponsive);
