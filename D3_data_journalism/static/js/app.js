@@ -164,5 +164,22 @@ circlesGroup.on("mouseover", function (d, i){
 .on("mouseout", function(){
     toolTip.style("display", "none");
 })
+
+//create axis text
+chartGroup.append("text")
+.attr("transform", "rotate(-90)")
+.attr("y", 0 - margin.left)
+.attr("x", 0 - (chartHeight / 2))
+.attr("dy", "1em")
+.attr("class", "axisText")
+.text("Number of Billboard 100 Hits");
+
+chartGroup.append("text")
+.attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top })`)
+.attr("class", "axisText")
+.text("Hair Metal Band Hair Length (inches)");
+}).catch(function(error) {
+console.log(error);
+
 })
 ;
