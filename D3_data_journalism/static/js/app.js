@@ -180,14 +180,26 @@ chartGroup.append("text")
 .text(varx);
 
 
-var menubox= chartGroup.append("g")
+var xmenu= chartGroup.append("g")
 
-menubox.append("text")
+xmenu.append("text")
 .attr("transform", `translate(${chartWidth+ 20}, 0)`)
 .attr("class", "box")
-.text("AGE");
-}).catch(function(error) {
-console.log(error);
+.text("Age");
 
+xmenu.append("text")
+.attr("transform", `translate(${chartWidth+ 20}, 0)`)
+.attr("class", "box")
+.text("Poverty");
+
+xmenu.append("text")
+.attr("transform", `translate(${chartWidth+ 20}, 0)`)
+.attr("class", "box")
+.text("healthcare");
+
+xmenu.append("text")
+.attr("transform", `translate(${chartWidth+ 20}, 0)`)
+.attr("class", "box")
+.text("Obesity");
 })
 ;

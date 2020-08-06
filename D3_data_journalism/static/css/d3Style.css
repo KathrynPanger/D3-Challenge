@@ -74,9 +74,9 @@
   height: 50px;
   padding: 2px;
   font: 12px sans-serif;
-  text-align: center;
-  background: rgb(241, 247, 190);
-  background-color: rgb(241, 247, 190);
+  text-align: left;
+  fill: black;
+  background-color: black;
   border: 1;
   border-radius: 10px;
   z-index: 99;
