@@ -137,11 +137,14 @@ var circlesGroup= chartGroup.selectAll("circle")
     .attr("stroke-width", "1")
     .attr("fill", "blue");
 
-    d3.selection.prototype.moveToFront = function() {
-        return this.each(function(){
-          this.parentNode.appendChild(this);
-        });
-      };
+    
+
+// keep the circles in front
+d3.selection.prototype.moveToFront = function() {
+    return this.each(function(){
+        this.parentNode.appendChild(this);
+    });
+    };
 
 
 //make tooltip
@@ -150,8 +153,10 @@ var toolTip = d3.select("body").append("div")
 .style('opacity', 0.7);
 
 //make it do mouseover display
-varx= "Obese (%)"
-vary = "Income ($/yr)"
+var varx= "Obese (%)"
+var vary = "Income ($/yr)"
+var altx = "age"
+
 
 circlesGroup.on("mouseover", function (d, i){
     toolTip.style("display", "block")
@@ -162,7 +167,9 @@ circlesGroup.on("mouseover", function (d, i){
     d3.select(this)
     .transition()
     .duration(200)
-    .attr("fill", "red");
+    .attr("fill", "red")
+    .attr("r", 10)
+    .style("opacity", 6);
 
 })
 // on mouseout
@@ -171,7 +178,9 @@ circlesGroup.on("mouseover", function (d, i){
     d3.select(this)
     .transition()
     .duration(200)
-    .attr("fill", "blue");
+    .attr("fill", "blue")
+    .attr("r", 6)
+    .style("opacity", 10);
 })
 
 //create axis text
@@ -184,11 +193,20 @@ chartGroup.append("text")
 .text(vary);
 
 
+
 chartGroup.append("text")
 .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top - 10})`)
 .attr("class", "axisText")
 .text(varx);
 
+//create alt axis text
+chartGroup.append("text")
+.attr("transform", "rotate(-90)")
+.attr("y", 0 - margin.left)
+.attr("x", 0 - (chartHeight / 2))
+.attr("dy", "1em")
+.attr("class", "axisText")
+.text(vary);
 
 var xmenu= chartGroup.append("g")
 
