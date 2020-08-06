@@ -126,7 +126,7 @@ var xScale = d3.scaleLinear()
 //draw a circle and append it to the chartGroup
 
 
-chartGroup.selectAll("circle")
+var circlesGroup= chartGroup.selectAll("circle")
     .data(data)
     .enter()
     .append("circle")
@@ -137,17 +137,28 @@ chartGroup.selectAll("circle")
     .attr("stroke-width", "5")
     .attr("fill", "red");
 
+    d3.selection.prototype.moveToFront = function() {
+        return this.each(function(){
+          this.parentNode.appendChild(this);
+        });
+      };
 
 //make tooltip
 var toolTip = d3.select("body").append("div")
-.attr("class", "tooltip");
+.attr("class", "tooltip")
+.style('opacity', 0.7);
 
 //make it do mouseover display
-chartGroup.on("mouseover", function (d, i){
-    toolTip.style("display", "block");
-    toolTip.html(data[i])
+varx= "Percent Obese"
+vary = "Median Income Monthly"
+
+circlesGroup.on("mouseover", function (d, i){
+    toolTip.style("display", "block")
+    .html(`${varx} : ${data[i].obesity}; ${vary} : ${data[i].income}`)
     .style("left", d3.event.pageX + "px")
-    .style("top", d3.event.pageY + "px");
+    .style("top", d3.event.pageY + "px")
+    .moveToFront();
+
 })
 // on mouseout
 .on("mouseout", function(){
