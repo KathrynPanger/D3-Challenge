@@ -180,10 +180,12 @@ chartGroup.append("text")
 .text(varx);
 
 
-chartGroup.append("text")
-.attr("transform", `translate(${chartWidth+ 60}, 0)`)
-.attr("class", "axisText")
-.text("FIND ME");
+var menubox= chartGroup.append("g")
+
+menubox.append("text")
+.attr("transform", `translate(${chartWidth+ 20}, 0)`)
+.attr("class", "box")
+.text("AGE");
 }).catch(function(error) {
 console.log(error);
 
