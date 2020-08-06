@@ -135,7 +135,7 @@ var circlesGroup= chartGroup.selectAll("circle")
     .attr("cy", (d => yScale(d.obesity)))
     .attr("stroke", "black")
     .attr("stroke-width", "1")
-    .attr("fill", "red");
+    .attr("fill", "blue");
 
     d3.selection.prototype.moveToFront = function() {
         return this.each(function(){
@@ -159,6 +159,10 @@ circlesGroup.on("mouseover", function (d, i){
     .style("left", d3.event.pageX + "px")
     .style("top", d3.event.pageY + "px")
     .moveToFront();
+    d3.select(this)
+    .transition()
+    .duration(500)
+    .attr("fill", "red");
 
 })
 // on mouseout
