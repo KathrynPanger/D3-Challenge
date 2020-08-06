@@ -130,7 +130,7 @@ var circlesGroup= chartGroup.selectAll("circle")
     .data(data)
     .enter()
     .append("circle")
-    .attr("r", 5)
+    .attr("r", 6)
     .attr("cx", (d => xScale(d.income)))
     .attr("cy", (d => yScale(d.obesity)))
     .attr("stroke", "black")
@@ -161,13 +161,17 @@ circlesGroup.on("mouseover", function (d, i){
     .moveToFront();
     d3.select(this)
     .transition()
-    .duration(500)
+    .duration(200)
     .attr("fill", "red");
 
 })
 // on mouseout
 .on("mouseout", function(){
     toolTip.style("display", "none");
+    d3.select(this)
+    .transition()
+    .duration(200)
+    .attr("fill", "blue");
 })
 
 //create axis text
