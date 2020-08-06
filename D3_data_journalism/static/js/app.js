@@ -1,8 +1,37 @@
 
 
 
+
+
+//define the width and hight of svgbox
+svgHeight=400
+svgWidth=600
+
+//set some margins
+var margin = {
+    top: 60,
+    right: 60,
+    bottom: 60,
+    left: 60
+  };
+  
+  
+ // Define chart area
+  var chartWidth = svgWidth - margin.left - margin.right;
+  var chartHeight = svgHeight - margin.top - margin.bottom;
+
+  //create wrapper
+  //create an svg box
+var svg = d3.select("#scatter")
+.append("svg")
+.attr("height", svgHeight)
+.attr("width", svgWidth);
+
+var chartGroup = svg.append("g")
+.attr("transform", `translate(${margin.left}, ${margin.top})`); 
+
 // bring in the data and store to arrays
-alldata = d3.csv("static/data/data.csv").then(function(data){
+d3.csv("static/data/data.csv").then(function(data){
     console.log(data)
 
     states = data.map(function(d) { 
@@ -77,23 +106,6 @@ smokesHigh = data.map(function(d) {
     return d.smokesHigh
 
 })
-
-//define the width and hight of svgbox
-svgHeight=400
-svgWidth=600
-
-//set some margins
-var margin = {
-    top: 60,
-    right: 60,
-    bottom: 60,
-    left: 60
-  };
-  
- // Define chart area
-  var chartWidth = svgWidth - margin.left - margin.right;
-  var chartHeight = svgHeight - margin.top - margin.bottom;
-
 //scale the data in preparation for circle-i-fication
 var xScale = d3.scaleLinear()
   .domain(d3.extent(income))
@@ -107,14 +119,16 @@ var xScale = d3.scaleLinear()
   var bottomAxis = d3.axisBottom(xScale);
   var leftAxis = d3.axisLeft(yScale);
 
+
+  // Add bottomAxis
+  chartGroup.append("g").attr("transform", `translate(0, ${chartHeight})`).call(bottomAxis);
+
+  // Add leftAxis to the left side of the display
+  chartGroup.append("g").call(leftAxis);
+
+
 //draw a circle and append it to the chartGroup
-//create an svg box
-var svg = d3.select("#scatter")
-  .append("svg")
-  .attr("height", chartHeight)
-  .attr("width", chartWidth);
-  var chartGroup = svg.append("g")
-  //.attr("transform", `translate(${margin.left}, ${margin.top})`); FIX THIS
+
 
 chartGroup.selectAll("circle")
     .data(data)
@@ -127,17 +141,11 @@ chartGroup.selectAll("circle")
     .attr("stroke-width", "5")
     .attr("fill", "red");
 
-chartGroup.append("g")
-    .classed("axis", true)
-    .call(leftAxis);
 
-chartGroup.append("g")
-    .classed("axis", true)
-    .attr("transform", `translate(0, ${chartHeight})`)
-    .call(bottomAxis);
-});
 
 
 
 
 //var newarray=dataArray.forEach(element => console.log(element.x));
+
+});
