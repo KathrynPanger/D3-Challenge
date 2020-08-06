@@ -149,12 +149,12 @@ var toolTip = d3.select("body").append("div")
 .style('opacity', 0.7);
 
 //make it do mouseover display
-varx= "Percent Obese"
-vary = "Median Income Monthly"
+varx= "Obese (%)"
+vary = "Income ($/yr)"
 
 circlesGroup.on("mouseover", function (d, i){
     toolTip.style("display", "block")
-    .html(`${varx} : ${data[i].obesity}; ${vary} : ${data[i].income}`)
+    .html(`<strong>${varx}</strong>: ${data[i].obesity}<br> <strong>${vary}</strong>: ${data[i].income}`)
     .style("left", d3.event.pageX + "px")
     .style("top", d3.event.pageY + "px")
     .moveToFront();
