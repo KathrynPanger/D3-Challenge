@@ -130,11 +130,11 @@ var circlesGroup= chartGroup.selectAll("circle")
     .data(data)
     .enter()
     .append("circle")
-    .attr("r", 2)
+    .attr("r", 5)
     .attr("cx", (d => xScale(d.income)))
     .attr("cy", (d => yScale(d.obesity)))
     .attr("stroke", "black")
-    .attr("stroke-width", "5")
+    .attr("stroke-width", "1")
     .attr("fill", "red");
 
     d3.selection.prototype.moveToFront = function() {
@@ -142,6 +142,7 @@ var circlesGroup= chartGroup.selectAll("circle")
           this.parentNode.appendChild(this);
         });
       };
+
 
 //make tooltip
 var toolTip = d3.select("body").append("div")
@@ -182,24 +183,24 @@ chartGroup.append("text")
 
 var xmenu= chartGroup.append("g")
 
-xmenu.append("text")
-.attr("transform", `translate(${chartWidth+ 20}, 0)`)
-.attr("class", "box")
-.text("Age");
+// xmenu.append("text")
+// .attr("transform", `translate(${chartWidth+ 20}, 0)`)
+// .attr("class", "box")
+// .text("Age");
 
-xmenu.append("text")
-.attr("transform", `translate(${chartWidth+ 20}, 0)`)
-.attr("class", "box")
-.text("Poverty");
+// xmenu.append("text")
+// .attr("transform", `translate(${chartWidth+ 20}, 0)`)
+// .attr("class", "box")
+// .text("Poverty");
 
-xmenu.append("text")
-.attr("transform", `translate(${chartWidth+ 20}, 0)`)
-.attr("class", "box")
-.text("healthcare");
+// xmenu.append("text")
+// .attr("transform", `translate(${chartWidth+ 20}, 0)`)
+// .attr("class", "box")
+// .text("healthcare");
 
-xmenu.append("text")
-.attr("transform", `translate(${chartWidth+ 20}, 0)`)
-.attr("class", "box")
-.text("Obesity");
+// xmenu.append("text")
+// .attr("transform", `translate(${chartWidth+ 20}, 0)`)
+// .attr("class", "box")
+// .text("Obesity");
 })
 ;
