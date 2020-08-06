@@ -172,12 +172,12 @@ chartGroup.append("text")
 .attr("x", 0 - (chartHeight / 2))
 .attr("dy", "1em")
 .attr("class", "axisText")
-.text("Number of Billboard 100 Hits");
+.text(vary);
 
 chartGroup.append("text")
 .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top })`)
 .attr("class", "axisText")
-.text("Hair Metal Band Hair Length (inches)");
+.text(varx);
 }).catch(function(error) {
 console.log(error);
 
