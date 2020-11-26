@@ -35,18 +35,24 @@ console.log(cradius)
 
 //Section 2: Axis labels
 //========================
+// ---> Pt 1, DVs
 
-//Create bottom text group to hold all labels
+//Create bottom text group to hold DV labels
 svg.append("g").attr("class","btext"); //create group for bottom labels, assign class
 
 //Give class the ability to locate itself on the axis and resize
+
+var btextx=(width-labelspace)/2 +labelspace;
+var btexty= height -margins -Bpadding
+
 var btext = d3.select(".btext")
 function btextresize() {
     btext.attr(
         "transform",
         "translate(" + 
-        ((width-labelspace)/2 +labelspace) //centers the text
-        + ", " + (height -margins -Bpadding) //places it on the bottom
+        btextx
+        + ", " + 
+        btexty 
         + ")"
     
 
@@ -72,3 +78,67 @@ btext
     .attr("data-axis", "x")
     .attr("class", "aText inactive x") // not initially active
     .text("Age (Median)");
+
+//DV3: Income 
+btext
+    .append("text")
+    .attr("y", 30) // y values to space text out
+    .attr("data-name", "age")
+    .attr("data-axis", "x")
+    .attr("class", "aText inactive x") // not initially active
+    .text("Household Income (Median)");
+
+
+//Section 2: Axis labels
+//========================
+// ---> Pt 2, IVs
+
+//Create group to hold IV labels
+svg.append("g").attr("class","ltext"); //create group for y axis labels, assign class
+
+//Give class the ability to locate itself on the axis and resize
+
+ltextx= margins + Lpadding
+ltexty = ((height - labelspace)/2) + labelspace
+var ltext = d3.select(".ltext")
+function ltextresize() {
+    ltext.attr(
+        "transform",
+        "translate(" + ltextx + ", " + ltexty + ")"
+        
+    
+
+    );
+}
+ltextresize();
+
+//Append IV Labels on Y Axis
+//IV1: Obesity
+
+ltext
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -30)
+    .attr("data-name", "obesity")
+    .attr("data-axis", "y")
+    .attr("class", "aText inactive y")
+    .text("Obese (%)")
+    
+ltext
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0)
+    .attr("data-name", "smokes")
+    .attr("data-axis", "y")
+    .attr("class", "aText inactive y")
+    .text("Smokes (%)")
+    
+ltext
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 30)
+    .attr("data-name", "nohealthcare")
+    .attr("data-axis", "y")
+    .attr("class", "aText active y")
+    .text("No Healthcare (%)")
+    
