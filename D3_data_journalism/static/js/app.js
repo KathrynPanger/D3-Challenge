@@ -1,3 +1,13 @@
+// var mark = 10
+// var answer = mark <=3 ? "yes" : "no" ;
+// console.log(answer)
+
+if(mark === 10) {
+    var answer = "yes";
+} else {
+    var answer = "no"
+}
+}
 
 //define the width and hight of svgbox
 svgHeight=400
@@ -235,3 +245,4 @@ var xmenu= chartGroup.append("g")
 // make page responsive
 makeResponsive();
 d3.select(window).on("resize", makeResponsive);
+
