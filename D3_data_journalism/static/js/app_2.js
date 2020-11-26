@@ -141,4 +141,38 @@ ltext
     .attr("data-axis", "y")
     .attr("class", "aText active y")
     .text("No Healthcare (%)")
+
+
+//Section 3: Import Data
+//=======================
+// State-level data from Behavioral Risk Factor Surveillance System
+
+d3.csv("static/data/data.csv").then(function(data){
+    display(data);
+});
+
+function display(data) {
     
+}
+
+//Section 4: Shapes
+
+//boarder
+svg.append("rect")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("height", height)
+    .attr("width", width)
+    .style("stroke", "black")
+    .style("fill", "none")
+    .style("stroke-width", 1);
+
+
+
+//refresh page on browser resize
+$(window).bind('resize', function(e)
+{
+  console.log('window resized..');
+  this.location.reload(false); /* false to get page from cache */
+  /* true to fetch page from server */
+});
