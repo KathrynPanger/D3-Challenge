@@ -9,7 +9,7 @@ var width= parseInt(d3.select("#scatter").style ("width"))
 console.log(width);
 
 //Define height of container
-var height= width * (3/2);
+var height= width * (2/3);
 console.log(height)
 
 //Define margins for container
@@ -148,12 +148,115 @@ ltext
 // State-level data from Behavioral Risk Factor Surveillance System
 
 d3.csv("static/data/data.csv").then(function(data){
-    display(data);
-});
+    viz(data)});
 
-function display(data) {
+
+function viz(data) {
+    states = data.map(function(d) { 
+        return d.state
     
+    })
+    id = data.map(function(d) { 
+        return d.id
+    
+    })
+    abbr = data.map(function(d) { 
+        return d.abbr
+    
+    })
+    poverty = data.map(function(d) { 
+        return d.poverty
+    
+    })
+    povertyMoe = data.map(function(d) { 
+        return d.povertyMoe
+    
+    })
+    age= data.map(function(d) { 
+        return d.age
+    
+    })
+    ageMoe = data.map(function(d) { 
+        return d.ageMoe
+    
+    })
+    income = data.map(function(d) { 
+        return d.income
+    
+    })
+    incomeMoe = data.map(function(d) { 
+        return d.idcomeMoe
+    
+    })
+    healthcare = data.map(function(d) { 
+        return d.healthcare
+    
+    })
+    healthcareLow = data.map(function(d) { 
+        return d.healthcareLow
+    
+    })
+    healthcareHigh = data.map(function(d) { 
+        return d.healthcareHigh
+    
+    })
+    obesity = data.map(function(d) { 
+        return d.obesity
+    
+    })
+    obesityLow = data.map(function(d) { 
+        return d.obesityLow
+    
+    })
+    obesityHigh = data.map(function(d) { 
+        return d.obesityHigh
+    
+    })
+    smokes = data.map(function(d) { 
+        return d.smokes
+    
+    })
+    smokesLow = data.map(function(d) { 
+        return d.smokesLow
+    
+    })
+    smokesHigh = data.map(function(d) { 
+        return d.smokesHigh
+    
+    })
+
+var workingx=obesity
+var workingy=smokes
+
+//scale the data in preparation for circle-i-fication
+function scale(varx,vary){
+
+var xScale = d3.scaleLinear()
+.domain(d3.extent(varx))
+.range([0, width]);
+
+var yScale = d3.scaleLinear()
+.domain(d3.extent(vary))
+.range([0, height]);
+
+//create variables to be axis in preparation for chart-i-fication
+var bottomAxis = d3.axisBottom(xScale);
+var leftAxis = d3.axisLeft(yScale);
+
+// Add bottomAxis
+ svg.append("g").attr("transform", `translate(0, ${height-margins-labelspace})`).call(bottomAxis);
+
+ // Add leftAxis to the left side of the display
+ svg.append("g").attr("transform", `translate(${margins + labelspace}, 0)`).call(leftAxis);
 }
+
+scale(workingx, workingy)
+ 
+
+    
+};
+
+
 
 //Section 4: Shapes
 
