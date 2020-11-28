@@ -22,7 +22,7 @@ var labelspace=110
 var Lpadding = 40
 var Bpadding = 40
 
-// Generate Canvas
+//Generate Canvas
 var svg = d3.select("#scatter")
     .append("svg")
     .attr("width", width)
@@ -32,6 +32,17 @@ var svg = d3.select("#scatter")
 //Set circle radius to be 1% of total viz area
 var cradius = Math.sqrt(height*width) / 314.159;
 console.log(cradius)
+
+//Create a boarder
+svg.append("rect")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("height", height)
+    .attr("width", width)
+    .style("stroke", "black")
+    .style("fill", "none")
+    .style("stroke-width", 1);
+
 
 //Section 2: Axis labels
 //========================
@@ -225,8 +236,8 @@ function viz(data) {
     
     })
 
-var workingx=obesity
-var workingy=smokes
+var workingx=poverty
+var workingy=healthcare
 
 //scale the data in preparation for circle-i-fication
 function scale(varx,vary){
@@ -253,22 +264,14 @@ var leftAxis = d3.axisLeft(yScale);
 scale(workingx, workingy)
  
 
-    
+
+
 };
 
 
 
 //Section 4: Shapes
 
-//boarder
-svg.append("rect")
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("height", height)
-    .attr("width", width)
-    .style("stroke", "black")
-    .style("fill", "none")
-    .style("stroke-width", 1);
 
 
 
