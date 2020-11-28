@@ -239,6 +239,10 @@ function viz(data) {
 var workingx=poverty
 var workingy=healthcare
 
+//Section 4: Scale Data
+//=======================
+// State-level data from Behavioral Risk Factor Surveillance System
+
 //scale the data in preparation for circle-i-fication
 function scale(varx,vary){
 
