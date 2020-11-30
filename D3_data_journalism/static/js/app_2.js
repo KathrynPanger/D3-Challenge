@@ -235,14 +235,20 @@ smokesHigh = data.map(function(d) {
 
 
 })
+x = income
+y = obesity
+
+draw(x, y)
+
+function draw(workingx, workingy){
 //scale the data in preparation for circle-i-fication
 var xScale = d3.scaleLinear()
-  .domain(d3.extent(income))
-  .range([0, width]);
+  .domain(d3.extent(workingx))
+  .range([0, width + margins + labelspace + Bpadding]);
 
   var yScale = d3.scaleLinear()
-  .domain(d3.extent(obesity))
-  .range([0, height]);
+  .domain(d3.extent(workingy))
+  .range([0, height+ margins +labelspace + Lpadding]);
 
  //create variables to be axis in preparation for chart-i-fication
   var bottomAxis = d3.axisBottom(xScale);
@@ -287,13 +293,17 @@ var toolTip = d3.select("body").append("div")
 
 //make it do mouseover display
 var varx= "Obese (%)"
+var altx = "Age (Median)"
+var altx2= "Household Income (Median)"
 var vary = "Income ($/yr)"
-var altx = "age"
+var alty = "Smokes (%)"
+var alty2 = "Obese (%)"
+
 
 
 circlesGroup.on("mouseover", function (d, i){
     toolTip.style("display", "block")
-    .html(`<strong>${varx}</strong>: ${data[i].obesity}<br> <strong>${vary}</strong>: ${data[i].income}`)
+    .html(`<strong>${varx}</strong>: ${workingx[i]}<br> <strong>${vary}</strong>: ${workingy[i]}`)
     .style("left", d3.event.pageX + "px")
     .style("top", d3.event.pageY + "px")
     .moveToFront();
@@ -339,7 +349,7 @@ svg.append("g").attr("transform", `translate(0, ${height-margins-labelspace})`).
 svg.append("g").attr("transform", `translate(${margins + labelspace}, 0)`).call(leftAxis);
 
 
-
+}
 // xmenu.append("text")
 // .attr("transform", `translate(${chartWidth+ 20}, 0)`)
 // .attr("class", "box")
