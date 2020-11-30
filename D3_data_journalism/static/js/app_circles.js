@@ -244,14 +244,14 @@ d3.csv("static/data/data.csv").then(function(data){
             //=======================
 
             //scale the data in preparation for circle-i-fication
-  
+            function scale(varx,vary){
 
             var xScale = d3.scaleLinear()
-            .domain(d3.extent(workingx))
+            .domain(d3.extent(varx))
             .range([0, width]);
 
             var yScale = d3.scaleLinear()
-            .domain(d3.extent(workingy))
+            .domain(d3.extent(vary))
             .range([0, height]);
 
             //create variables to be axes in preparation for chart-i-fication
@@ -263,27 +263,22 @@ d3.csv("static/data/data.csv").then(function(data){
 
             // Add leftAxis to the left side of the display
             svg.append("g").attr("transform", `translate(${margins + labelspace}, 0)`).call(leftAxis);
-           
-            function scaleValue(value, from, to) {
-                var scale = (to[1] - to[0]) / (from[1] - from[0]);
-                var capped = Math.min(from[1], Math.max(from[0], value)) - from[0];
-                return ~~(capped * scale + to[0]); }
+            }
 
-
-         
+            scale(workingx, workingy);
 
             var circlesGroup= svg.selectAll("circle")
             .data(data)
             .enter()
             .append("circle")
             .attr("r", 6)
-            .attr("cx", (d => xScale(workingx)))
-            .attr("cy", (d => yScale(workingy)))
+            .attr("cx", (d => xScale(d.income)))
+            .attr("cy", (d => yScale(d.obesity)))
             .attr("stroke", "black")
             .attr("stroke-width", "1")
             .attr("fill", "blue");
 
-    };
+        };
             //Section 5: Plot Data
             //=======================
 

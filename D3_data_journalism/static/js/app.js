@@ -2,12 +2,6 @@
 // var answer = mark <=3 ? "yes" : "no" ;
 // console.log(answer)
 
-if(mark === 10) {
-    var answer = "yes";
-} else {
-    var answer = "no"
-}
-}
 
 //define the width and hight of svgbox
 svgHeight=400
@@ -111,7 +105,10 @@ smokesLow = data.map(function(d) {
 smokesHigh = data.map(function(d) { 
     return d.smokesHigh
 
+
 })
+
+console.log(d3.extent(obesity))
 //scale the data in preparation for circle-i-fication
 var xScale = d3.scaleLinear()
   .domain(d3.extent(income))
@@ -243,6 +240,6 @@ var xmenu= chartGroup.append("g")
 ;
 
 // make page responsive
-makeResponsive();
-d3.select(window).on("resize", makeResponsive);
+// makeResponsive();
+// d3.select(window).on("resize", makeResponsive);
 
