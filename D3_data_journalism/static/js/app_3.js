@@ -263,20 +263,21 @@ d3.csv("static/data/data.csv").then(function(data){
 
             // Add leftAxis to the left side of the display
             svg.append("g").attr("transform", `translate(${margins + labelspace}, 0)`).call(leftAxis);
-            }
+            
 
             scale(workingx, workingy);
 
             var circlesGroup= svg.selectAll("circle")
-            .data(workingx,workingy)
+            .data(data)
             .enter()
             .append("circle")
             .attr("r", 6)
-            .attr("cx", (d => workingx))
-            .attr("cy", (d => workingy))
+            .attr("cx", (d => xScale))
+            .attr("cy", (d => yScale))
             .attr("stroke", "black")
             .attr("stroke-width", "1")
             .attr("fill", "blue");
+        }
 
         };
             //Section 5: Plot Data

@@ -107,8 +107,6 @@ smokesHigh = data.map(function(d) {
 
 
 })
-
-console.log(d3.extent(obesity))
 //scale the data in preparation for circle-i-fication
 var xScale = d3.scaleLinear()
   .domain(d3.extent(income))

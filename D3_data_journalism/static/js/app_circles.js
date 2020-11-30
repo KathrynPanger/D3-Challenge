@@ -278,12 +278,9 @@ d3.csv("static/data/data.csv").then(function(data){
             .attr("stroke-width", "1")
             .attr("fill", "blue");
 
+        
+
         };
-            //Section 5: Plot Data
-            //=======================
-
-
-
             //refresh page on browser resize
             $(window).bind('resize', function(e)
             {

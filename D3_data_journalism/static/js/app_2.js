@@ -158,144 +158,191 @@ ltext
 //Section 3: Import Data
 //=======================
 // State-level data from Behavioral Risk Factor Surveillance System
-
+// bring in the data and store to arrays
 d3.csv("static/data/data.csv").then(function(data){
-    viz(data)});
+    console.log(data)
+
+    states = data.map(function(d) { 
+    return d.state
+
+})
+id = data.map(function(d) { 
+    return d.id
+
+})
+abbr = data.map(function(d) { 
+    return d.abbr
+
+})
+poverty = data.map(function(d) { 
+    return d.poverty
+
+})
+povertyMoe = data.map(function(d) { 
+    return d.povertyMoe
+
+})
+age= data.map(function(d) { 
+    return d.age
+
+})
+ageMoe = data.map(function(d) { 
+    return d.ageMoe
+
+})
+income = data.map(function(d) { 
+    return d.income
+
+})
+incomeMoe = data.map(function(d) { 
+    return d.idcomeMoe
+
+})
+healthcare = data.map(function(d) { 
+    return d.healthcare
+
+})
+healthcareLow = data.map(function(d) { 
+    return d.healthcareLow
+
+})
+healthcareHigh = data.map(function(d) { 
+    return d.healthcareHigh
+
+})
+obesity = data.map(function(d) { 
+    return d.obesity
+
+})
+obesityLow = data.map(function(d) { 
+    return d.obesityLow
+
+})
+obesityHigh = data.map(function(d) { 
+    return d.obesityHigh
+
+})
+smokes = data.map(function(d) { 
+    return d.smokes
+
+})
+smokesLow = data.map(function(d) { 
+    return d.smokesLow
+
+})
+smokesHigh = data.map(function(d) { 
+    return d.smokesHigh
 
 
-    function viz(data) {
-        states = data.map(function(d) { 
-            return d.state
-        
-        })
-        id = data.map(function(d) { 
-            return d.id
-        
-        })
-        abbr = data.map(function(d) { 
-            return d.abbr
-        
-        })
-        poverty = data.map(function(d) { 
-            return d.poverty
-        
-        })
-        povertyMoe = data.map(function(d) { 
-            return d.povertyMoe
-        
-        })
-        age= data.map(function(d) { 
-            return d.age
-        
-        })
-        ageMoe = data.map(function(d) { 
-            return d.ageMoe
-        
-        })
-        income = data.map(function(d) { 
-            return d.income
-        
-        })
-        incomeMoe = data.map(function(d) { 
-            return d.idcomeMoe
-        
-        })
-        healthcare = data.map(function(d) { 
-            return d.healthcare
-        
-        })
-        healthcareLow = data.map(function(d) { 
-            return d.healthcareLow
-        
-        })
-        healthcareHigh = data.map(function(d) { 
-            return d.healthcareHigh
-        
-        })
-        obesity = data.map(function(d) { 
-            return d.obesity
-        
-        })
-        obesityLow = data.map(function(d) { 
-            return d.obesityLow
-        
-        })
-        obesityHigh = data.map(function(d) { 
-            return d.obesityHigh
-        
-        })
-        smokes = data.map(function(d) { 
-            return d.smokes
-        
-        })
-        smokesLow = data.map(function(d) { 
-            return d.smokesLow
-        
-        })
-        smokesHigh = data.map(function(d) { 
-            return d.smokesHigh
-        
-        });
+})
+//scale the data in preparation for circle-i-fication
+var xScale = d3.scaleLinear()
+  .domain(d3.extent(income))
+  .range([0, width]);
 
-            var workingx=poverty
-            var workingy=healthcare
+  var yScale = d3.scaleLinear()
+  .domain(d3.extent(obesity))
+  .range([0, height]);
 
-            //Section 4: Scale Data
-            //=======================
-
-            //scale the data in preparation for circle-i-fication
-  
-
-            var xScale = d3.scaleLinear()
-            .domain(d3.extent(workingx))
-            .range([0, width]);
-
-            var yScale = d3.scaleLinear()
-            .domain(d3.extent(workingy))
-            .range([0, height]);
-
-            //create variables to be axes in preparation for chart-i-fication
-            var bottomAxis = d3.axisBottom(xScale);
-            var leftAxis = d3.axisLeft(yScale);
-
-            // Add bottomAxis
-            svg.append("g").attr("transform", `translate(0, ${height-margins-labelspace})`).call(bottomAxis);
-
-            // Add leftAxis to the left side of the display
-            svg.append("g").attr("transform", `translate(${margins + labelspace}, 0)`).call(leftAxis);
-           
-            function scaleValue(value, from, to) {
-                var scale = (to[1] - to[0]) / (from[1] - from[0]);
-                var capped = Math.min(from[1], Math.max(from[0], value)) - from[0];
-                return ~~(capped * scale + to[0]); }
+ //create variables to be axis in preparation for chart-i-fication
+  var bottomAxis = d3.axisBottom(xScale);
+  var leftAxis = d3.axisLeft(yScale);
 
 
-         
+  // Add bottomAxis
+  svg.append("g").attr("transform", `translate(0, ${height})`).call(bottomAxis);
 
-            var circlesGroup= svg.selectAll("circle")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("r", 6)
-            .attr("cx", (d => xScale(workingx)))
-            .attr("cy", (d => yScale(workingy)))
-            .attr("stroke", "black")
-            .attr("stroke-width", "1")
-            .attr("fill", "blue");
+  // Add leftAxis to the left side of the display
+  svg.append("g").call(leftAxis);
 
+
+//draw a circle and append it to the chartGroup
+
+
+var circlesGroup= svg.selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("r", 6)
+    .attr("cx", (d => xScale(d.income)))
+    .attr("cy", (d => yScale(d.obesity)))
+    .attr("stroke", "black")
+    .attr("stroke-width", "1")
+    .attr("fill", "blue");
+
+    
+
+// keep the circles in front
+d3.selection.prototype.moveToFront = function() {
+    return this.each(function(){
+        this.parentNode.appendChild(this);
+    });
     };
-            //Section 5: Plot Data
-            //=======================
+
+
+//make tooltip
+var toolTip = d3.select("body").append("div")
+.attr("class", "tooltip")
+.style('opacity', 0.7);
+
+//make it do mouseover display
+var varx= "Obese (%)"
+var vary = "Income ($/yr)"
+var altx = "age"
+
+
+circlesGroup.on("mouseover", function (d, i){
+    toolTip.style("display", "block")
+    .html(`<strong>${varx}</strong>: ${data[i].obesity}<br> <strong>${vary}</strong>: ${data[i].income}`)
+    .style("left", d3.event.pageX + "px")
+    .style("top", d3.event.pageY + "px")
+    .moveToFront();
+    d3.select(this)
+    .transition()
+    .duration(200)
+    .attr("fill", "red")
+    .attr("r", 10)
+    .style("opacity", 6);
+
+})
+// on mouseout
+.on("mouseout", function(){
+    toolTip.style("display", "none");
+    d3.select(this)
+    .transition()
+    .duration(200)
+    .attr("fill", "blue")
+    .attr("r", 6)
+    .style("opacity", 10);
+})
+
+
+var xmenu= svg.append("g")
+
+
+var xScale = d3.scaleLinear()
+.domain(d3.extent(obesity))
+.range([0, width]);
+
+var yScale = d3.scaleLinear()
+.domain(d3.extent(poverty))
+.range([0, height]);
+
+//create variables to be axes in preparation for chart-i-fication
+var bottomAxis = d3.axisBottom(xScale);
+var leftAxis = d3.axisLeft(yScale);
+
+// Add bottomAxis
+svg.append("g").attr("transform", `translate(0, ${height-margins-labelspace})`).call(bottomAxis);
+
+// Add leftAxis to the left side of the display
+svg.append("g").attr("transform", `translate(${margins + labelspace}, 0)`).call(leftAxis);
 
 
 
-            //refresh page on browser resize
-            $(window).bind('resize', function(e)
-            {
-            console.log('window resized..');
-            this.location.reload(false); /* false to get page from cache */
-            /* true to fetch page from server */
-            });
-
-
-
+// xmenu.append("text")
+// .attr("transform", `translate(${chartWidth+ 20}, 0)`)
+// .attr("class", "box")
+// .text("Age");
+})
+;
