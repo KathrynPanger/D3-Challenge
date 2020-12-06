@@ -1,163 +1,38 @@
-// D3 Animated Scatter Plot
+// var mark = 10
+// var answer = mark <=3 ? "yes" : "no" ;
+// console.log(answer)
 
 
-//Section 1: Visualization Space Setup
-//=====================================
+//define the width and hight of svgbox
+svgHeight=400
+svgWidth=600
 
-//Get the width of container
-var width= parseInt(d3.select("#scatter").style ("width"))
-console.log(width);
+//set some margins
+var margin = {
+    top: 60,
+    right: 120,
+    bottom: 60,
+    left: 60
+  };
+  
+  
+ // Define chart area
+  var chartWidth = svgWidth - margin.left - margin.right;
+  var chartHeight = svgHeight - margin.top - margin.bottom;
 
-//Define height of container
-var height= width * (2/3);
-console.log(height)
+  //create wrapper
+  //create an svg box
 
-//Define margins for container
-var margins = 20
-
-//Allocate text space
-var labelspace=110
-
-//Allocate text padding
-var Lpadding = 40
-var Bpadding = 40
-
-//Generate Canvas
 var svg = d3.select("#scatter")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height) 
-    .attr("class", "chart")
+.append("svg")
+.attr("height", svgHeight)
+.attr("width", svgWidth);
 
-//Set circle radius to be 1% of total viz area
-var cradius = Math.sqrt(height*width) / 314.159;
-console.log(cradius)
-
-//Create a boarder
-svg.append("rect")
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("height", height)
-    .attr("width", width)
-    .style("stroke", "black")
-    .style("fill", "none")
-    .style("stroke-width", 1);
-
-
-//Section 2: Axis labels
-//========================
-// ---> Pt 1, DVs
-
-//Create bottom text group to hold DV labels
-svg.append("g").attr("class","btext"); //create group for bottom labels, assign class
-
-//Give class the ability to locate itself on the axis and resize
-
-var btextx=(width-labelspace)/2 +labelspace;
-var btexty= height -margins -Bpadding
-
-var btext = d3.select(".btext")
-function btextresize() {
-    btext.attr(
-        "transform",
-        "translate(" + 
-        btextx
-        + ", " + 
-        btexty 
-        + ")"
-    
-
-    );
-}
-btextresize();
-
-//Append DV Labels on X Axis
-//DV1: Poverty
-btext
-    .append("text")
-    .attr("y", -30) // y values to space text out
-    .attr("data-name", "poverty")
-    .attr("data-axis", "x")
-    .attr("class", "aText active x") //initially active
-    .text("Poverty (%)");
-
-//DV2: Age 
-btext
-    .append("text")
-    .attr("y", 0) // y values to space text out
-    .attr("data-name", "age")
-    .attr("data-axis", "x")
-    .attr("class", "aText inactive x") // not initially active
-    .text("Age (Median)");
-
-//DV3: Income 
-btext
-    .append("text")
-    .attr("y", 30) // y values to space text out
-    .attr("data-name", "age")
-    .attr("data-axis", "x")
-    .attr("class", "aText inactive x") // not initially active
-    .text("Household Income (Median)");
-
-
-//Section 2: Axis labels
-//========================
-// ---> Pt 2, IVs
-
-//Create group to hold IV labels
-svg.append("g").attr("class","ltext"); //create group for y axis labels, assign class
-
-//Give class the ability to locate itself on the axis and resize
-
-ltextx= margins + Lpadding
-ltexty = ((height - labelspace)/2) + labelspace
-var ltext = d3.select(".ltext")
-function ltextresize() {
-    ltext.attr(
-        "transform",
-        "translate(" + ltextx + ", " + ltexty + ")"
-        
-    
-
-    );
-}
-ltextresize();
-
-//Append IV Labels on Y Axis
-//IV1: Obesity
-
-ltext
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", -30)
-    .attr("data-name", "obesity")
-    .attr("data-axis", "y")
-    .attr("class", "aText inactive y")
-    .text("Obese (%)")
-    
-ltext
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0)
-    .attr("data-name", "smokes")
-    .attr("data-axis", "y")
-    .attr("class", "aText inactive y")
-    .text("Smokes (%)")
-    
-ltext
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 30)
-    .attr("data-name", "nohealthcare")
-    .attr("data-axis", "y")
-    .attr("class", "aText active y")
-    .text("No Healthcare (%)")
+var chartGroup = svg.append("g")
+.attr("transform", `translate(${margin.left}, ${margin.top})`); 
 
 
 
-//Section 3: Import Data
-//=======================
-// State-level data from Behavioral Risk Factor Surveillance System
 // bring in the data and store to arrays
 d3.csv("static/data/data.csv").then(function(data){
     console.log(data)
@@ -235,20 +110,14 @@ smokesHigh = data.map(function(d) {
 
 
 })
-x = income
-y = obesity
-
-draw(x, y)
-
-function draw(workingx, workingy){
 //scale the data in preparation for circle-i-fication
 var xScale = d3.scaleLinear()
-  .domain(d3.extent(workingx))
-  .range([0, width + margins + labelspace + Bpadding]);
+  .domain(d3.extent(obesity))
+  .range([0, chartWidth]);
 
   var yScale = d3.scaleLinear()
-  .domain(d3.extent(workingy))
-  .range([0, height+ margins +labelspace + Lpadding]);
+  .domain(d3.extent(income))
+  .range([chartHeight, 0]);
 
  //create variables to be axis in preparation for chart-i-fication
   var bottomAxis = d3.axisBottom(xScale);
@@ -256,22 +125,24 @@ var xScale = d3.scaleLinear()
 
 
   // Add bottomAxis
-  svg.append("g").attr("transform", `translate(0, ${height})`).call(bottomAxis);
+  chartGroup.append("g").attr("transform", `translate(0, ${chartHeight})`).call(bottomAxis);
 
   // Add leftAxis to the left side of the display
-  svg.append("g").call(leftAxis);
+  chartGroup.append("g").call(leftAxis);
 
 
 //draw a circle and append it to the chartGroup
 
+var curx=d.obesity
+var cury=d.income
 
-var circlesGroup= svg.selectAll("circle")
+var circlesGroup= chartGroup.selectAll("circle")
     .data(data)
     .enter()
     .append("circle")
     .attr("r", 6)
-    .attr("cx", (d => xScale(d.income)))
-    .attr("cy", (d => yScale(d.obesity)))
+    .attr("cx", (d => xScale(d.obesity)))
+    .attr("cy", (d => yScale(d.income)))
     .attr("stroke", "black")
     .attr("stroke-width", "1")
     .attr("fill", "blue");
@@ -293,17 +164,13 @@ var toolTip = d3.select("body").append("div")
 
 //make it do mouseover display
 var varx= "Obese (%)"
-var altx = "Age (Median)"
-var altx2= "Household Income (Median)"
 var vary = "Income ($/yr)"
-var alty = "Smokes (%)"
-var alty2 = "Obese (%)"
-
+var altx = "age"
 
 
 circlesGroup.on("mouseover", function (d, i){
     toolTip.style("display", "block")
-    .html(`<strong>${varx}</strong>: ${workingx[i]}<br> <strong>${vary}</strong>: ${workingy[i]}`)
+    .html(`<strong>${varx}</strong>: ${data[i].obesity}<br> <strong>${vary}</strong>: ${data[i].income}`)
     .style("left", d3.event.pageX + "px")
     .style("top", d3.event.pageY + "px")
     .moveToFront();
@@ -326,33 +193,56 @@ circlesGroup.on("mouseover", function (d, i){
     .style("opacity", 10);
 })
 
-
-var xmenu= svg.append("g")
-
-
-var xScale = d3.scaleLinear()
-.domain(d3.extent(obesity))
-.range([0, width]);
-
-var yScale = d3.scaleLinear()
-.domain(d3.extent(poverty))
-.range([0, height]);
-
-//create variables to be axes in preparation for chart-i-fication
-var bottomAxis = d3.axisBottom(xScale);
-var leftAxis = d3.axisLeft(yScale);
-
-// Add bottomAxis
-svg.append("g").attr("transform", `translate(0, ${height-margins-labelspace})`).call(bottomAxis);
-
-// Add leftAxis to the left side of the display
-svg.append("g").attr("transform", `translate(${margins + labelspace}, 0)`).call(leftAxis);
+//create axis text
+chartGroup.append("text")
+.attr("transform", "rotate(-90)")
+.attr("y", 0 - margin.left)
+.attr("x", 0 - (chartHeight / 2))
+.attr("dy", "1em")
+.attr("class", "axisText")
+.text(vary);
 
 
-}
+
+chartGroup.append("text")
+.attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top - 10})`)
+.attr("class", "axisText")
+.text(varx);
+
+//create alt axis text
+chartGroup.append("text")
+.attr("transform", "rotate(-90)")
+.attr("y", 0 - margin.left)
+.attr("x", 0 - (chartHeight / 2))
+.attr("dy", "1em")
+.attr("class", "axisText")
+.text(vary);
+
+var xmenu= chartGroup.append("g")
+
 // xmenu.append("text")
 // .attr("transform", `translate(${chartWidth+ 20}, 0)`)
 // .attr("class", "box")
 // .text("Age");
+
+// xmenu.append("text")
+// .attr("transform", `translate(${chartWidth+ 20}, 0)`)
+// .attr("class", "box")
+// .text("Poverty");
+
+// xmenu.append("text")
+// .attr("transform", `translate(${chartWidth+ 20}, 0)`)
+// .attr("class", "box")
+// .text("healthcare");
+
+// xmenu.append("text")
+// .attr("transform", `translate(${chartWidth+ 20}, 0)`)
+// .attr("class", "box")
+// .text("Obesity");
 })
 ;
+
+// make page responsive
+// makeResponsive();
+// d3.select(window).on("resize", makeResponsive);
+
