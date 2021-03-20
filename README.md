@@ -18,4 +18,6 @@ This project visualizes the relationship between health-related risk factors at 
 |       +--app.js = javascript code
 ```
 
+## Vizualization Preview:
+
  ![Vizualization Preview](chart.png)
