@@ -6,19 +6,18 @@ This project visualizes the relationship between health-related risk factors at 
 
 ## The Files:
 
-D3\_data_journalism<br/><br/>
-|<br/><br/>
-|-->index.html = webpage to display data<br/><br/>
-|-->static<br/><br/>
-    |<br/><br/>
-    |-->css<br/><br/>
-    |   |<br/><br/>
-    |   |-->d3Style.css = style sheet for d3-related visualization<br/><br/>
-    |   |-->style.css = second style sheet for everything else<br/><br/>
-    |<br/><br/>
-    |-->data<br/><br/>
-    |  |-->data.csv = csv file of state data<br/><br/>
-    |<br/><br/>
-    |-->js<br/><br/>
-        |-->app_2.js = javascript code<br/><br/>
-
+<p>D3\_data_journalism</p>
+<p>|</p>
+<p>|-->index.html = webpage to display data</p>
+<p>|-->static</p>
+<p>    |</p>
+<p>    |-->css</p>
+<p>    |   |</p>
+<p>    |   |-->d3Style.css = style sheet for d3-related visualization</p>
+<p>    |   |-->style.css = second style sheet for everything else</p>
+<p>    |</p>
+<p>    |-->data</p>
+<p>    |  |-->data.csv = csv file of state data</p>
+<p>    |</p>
+<p>    |-->js</p>
+<p>        |-->app_2.js = javascript code</p>
