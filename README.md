@@ -15,5 +15,7 @@ This project visualizes the relationship between health-related risk factors at 
 |       +-- data
 |          +--data.csv = csv file of state data
 |   +--js
-|       +--app_2.js = javascript code
+|       +--app.js = javascript code
 ```
+
+ ![Vizualization Preview](chart.png)
